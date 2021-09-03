@@ -12,28 +12,40 @@ class PasswordPage extends StatefulWidget {
 
 class _FirstPageState extends State<PasswordPage> {
   bool _passwordVisible = true;
+  String password = "";
   String passwordStrength = "";
+  String errorText = "";
   int passwordLevel = 0;
   bool _passwordValid = false;
   bool _containLowerCase = false;
   bool _containUpperCase = false;
   bool _containNumber = false;
   bool _containCharacters = false;
-  final _stepSize  = 4;
+  final _stepSize = 4;
 
   final double _stepCircleRadius = 5.0;
 
-  final _stepProgressViewHeight = 100.0;
+  final _stepProgressViewHeight = 55.0;
 
-  Color _activeColor = Colors.lightGreen;
+  Color _activeColor = Colors.lightGreenAccent;
 
   Color _inactiveColor = Colors.white;
 
   int _curPage = 1;
 
-  StepProgressView _getStepProgress(){
-    return StepProgressView(_stepSize, _curPage, _stepProgressViewHeight, 350.0, _stepCircleRadius, _activeColor, _inactiveColor, 5.0, BoxDecoration(color: Theme.of(context).accentColor));
+  StepProgressView _getStepProgress() {
+    return StepProgressView(
+        _stepSize,
+        _curPage,
+        _stepProgressViewHeight,
+        350.0,
+        _stepCircleRadius,
+        _activeColor,
+        _inactiveColor,
+        5.0,
+        BoxDecoration(color: Theme.of(context).accentColor));
   }
+
   Color passwordColor(int level) {
     Color color = Colors.red;
     if (level == 0) {
@@ -61,7 +73,11 @@ class _FirstPageState extends State<PasswordPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 125.0,child: _getStepProgress(),width: 375.0,),
+            SizedBox(
+              height: 80.0,
+              child: _getStepProgress(),
+              width: 375.0,
+            ),
             Text(
               'Create Password',
               style: TextStyle(
@@ -105,6 +121,7 @@ class _FirstPageState extends State<PasswordPage> {
                       passwordLevel = 0;
                       passwordStrength = "Weak";
                     }
+                    password = val;
                   });
                 }
               },
@@ -142,7 +159,7 @@ class _FirstPageState extends State<PasswordPage> {
               ),
             ),
             SizedBox(
-              height: 15.0,
+              height: 5.0,
             ),
             Text(
               'Is your password strong?',
@@ -152,7 +169,7 @@ class _FirstPageState extends State<PasswordPage> {
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 15.0,
+              height: 5.0,
             ),
             Row(
               children: [
@@ -164,7 +181,7 @@ class _FirstPageState extends State<PasswordPage> {
               ],
             ),
             SizedBox(
-              height: 10.0,
+              height: 5.0,
             ),
             Text(
               'Is your password format correct?',
@@ -174,7 +191,7 @@ class _FirstPageState extends State<PasswordPage> {
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 15.0,
+              height: 10.0,
             ),
             Row(
               children: [
@@ -255,10 +272,6 @@ class _FirstPageState extends State<PasswordPage> {
                               builder: (context) => PersonalInformationPage(
                                     title: "Create Account",
                                   )));
-                    } else {
-                      final snackBar = SnackBar(
-                          content: Text('Password format incorrect or empty'));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   color: Colors.cyan,
@@ -273,10 +286,5 @@ class _FirstPageState extends State<PasswordPage> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }

@@ -66,10 +66,10 @@ class StepProgressView extends StatelessWidget {
 
       wids.add(CircleAvatar(
         backgroundColor: Colors.black54,
-        radius: 30,
+        radius: 25,
         child: CircleAvatar(
           backgroundColor: circleColor,
-          radius: 25,
+          radius: 20,
           child: Text("${i+1}", style: TextStyle(color: Colors.black),),
         )
       ));
@@ -94,7 +94,7 @@ class StepProgressView extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(10.0),
       height: this._height,
       width: this._width,
       decoration: this._decoration,

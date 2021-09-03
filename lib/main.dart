@@ -39,7 +39,7 @@ class _FirstPageState extends State<FirstPage> {
 
   final double _stepCircleRadius = 5.0;
 
-  final _stepProgressViewHeight = 100.0;
+  final _stepProgressViewHeight = 55.0;
 
   Color _activeColor = Colors.lightGreen;
 
@@ -71,7 +71,7 @@ class _FirstPageState extends State<FirstPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 125.0, child: _getStepProgress(), width: 375.0),
+            SizedBox(height: 80.0, child: _getStepProgress(), width: 375.0),
             Text(
               'Welcome to',
               style: TextStyle(
@@ -140,6 +140,12 @@ class _FirstPageState extends State<FirstPage> {
             SizedBox(
               height: 30.0,
             ),
+            Visibility(
+                visible: !_validEmail,
+                child: Text(
+                  'Email empty or incorrect format',
+                  style: TextStyle(color: Colors.black, fontSize: 16.0),
+                )),
             Expanded(
                 child: Align(
               alignment: Alignment.bottomCenter,
@@ -152,10 +158,6 @@ class _FirstPageState extends State<FirstPage> {
                             builder: (context) => PasswordPage(
                                   title: "Create Account",
                                 )));
-                  } else {
-                    final snackBar = SnackBar(
-                        content: Text('Email empty or incorrect format'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },
                 color: Colors.cyan,
@@ -168,11 +170,5 @@ class _FirstPageState extends State<FirstPage> {
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
   }
 }

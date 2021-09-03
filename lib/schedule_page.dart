@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 /*
 TBD
  */
@@ -12,22 +14,8 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-  bool _passwordVisible = false;
-  String passwordStrength = "";
-  int passwordLevel = 0;
-  bool _passwordValid = false;
 
-  Color passwordColor(int level) {
-    Color color = Colors.red;
-    if (level == 0) {
-      color = Colors.red;
-    } else if (level == 1) {
-      color = Colors.blue;
-    } else if (level == 2) {
-      color = Colors.green;
-    }
-    return color;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,91 +45,26 @@ class _SchedulePageState extends State<SchedulePage> {
             SizedBox(
               height: 15.0,
             ),
-            TextFormField(
-              onChanged: (val) {
-                bool strongPassword =
-                    RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{10,})")
-                        .hasMatch(val!);
 
-                bool mediumPassword =
-                    RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,10})")
-                        .hasMatch(val!);
-                if (mounted) {
-                  setState(() {
-                    if (mediumPassword) {
-                      passwordLevel = 1;
-                      passwordStrength = "Normal";
-                      _passwordValid = true;
-                    } else if (strongPassword) {
-                      passwordLevel = 2;
-                      passwordStrength = "Strong";
-                      _passwordValid = true;
-                    } else {
-                      passwordLevel = 0;
-                      passwordStrength = "Weak";
-                    }
-                  });
-                }
-              },
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return "Password cannot be empty";
-                }
-              },
-              keyboardType: TextInputType.text,
-              obscureText: _passwordVisible,
-              decoration: InputDecoration(
-                hintText: "Password",
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(),
-                ),
-                suffixIcon: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: IconButton(
-                    icon: Icon(
-                      _passwordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      if (mounted) {
-                        setState(() {
-                          _passwordVisible = !_passwordVisible;
-                        });
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
               height: 15.0,
             ),
-            Row(
-              children: [
-                Text('Complexity : ',
-                    style: TextStyle(color: Colors.white, fontSize: 14.0)),
-                Text(passwordStrength,
-                    style: TextStyle(
-                        color: passwordColor(passwordLevel), fontSize: 14.0))
-              ],
-            ),
+
             SizedBox(
               height: 30.0,
             ),
-            Align(
+            Expanded(child: Align(
               alignment: Alignment.bottomCenter,
               child: MaterialButton(
                 onPressed: () {
                   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                 },
                 color: Colors.cyan,
-                child: Text('Done',
+                child: Text('Finish',
                     style: TextStyle(fontSize: 20, color: Colors.white)),
               ),
-            )
+            )),
+
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
