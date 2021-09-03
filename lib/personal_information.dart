@@ -222,8 +222,6 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
               alignment: Alignment.bottomCenter,
               child: MaterialButton(
                 onPressed: () {
-                  print(
-                      "$monthlyExpenseChoice $monthlyIncomeChoice $monthlyIncomeVal $monthlyExpenseVal");
                   if (formValidity()) {
                     Navigator.push(
                         context,
